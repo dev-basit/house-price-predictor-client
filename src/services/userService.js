@@ -8,22 +8,14 @@ import { auth } from "./authService";
 const userApiEndpoint = baseURL + "users";
 
 const newUserSchema = Joi.object({
-  name: Joi.string().min(3).max(50).required(),
+  name: Joi.string().min(3).max(128).required(),
   email: Joi.string()
-    .min(5)
-    .max(255)
+    .min(3)
+    .max(128)
     .required()
     .email({ tlds: { allow: false } }),
-  password: Joi.string()
-    .regex(/^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{8,}$/)
-    .required()
-    .messages({
-      "string.pattern.base": "Password must be atleast 8 characters long and alphanumeic",
-    }),
+  password: Joi.string(),
   phoneNo: Joi.string().min(3).max(20).required(),
-  experience: Joi.number().integer().min(1).max(30),
-  userType: Joi.string().valid("buyer", "seller").required(),
-  profilePicture: Joi.string().required(),
 });
 
 async function addNewUser(user) {
@@ -51,17 +43,7 @@ async function getMyDetails() {
 async function userDetails(id) {
   try {
     const response = await http.get(userApiEndpoint + "/details/" + id);
-    console.log("response in userdetails ", response);
     return response;
-  } catch (err) {
-    showFailureToaster(err.data.errorMessage);
-    return false;
-  }
-}
-
-async function getAllArtists() {
-  try {
-    return await http.get(userApiEndpoint + "/artists");
   } catch (err) {
     showFailureToaster(err.data.errorMessage);
     return false;
@@ -83,7 +65,6 @@ export const userService = {
   newUserSchema,
   addNewUser,
   getMyDetails,
-  getAllArtists,
   userDetails,
   updateUser,
 };

@@ -31,13 +31,13 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    showToast("success");
+    // showToast("success");
     return response;
   },
   (error) => {
     const expectedError = error.response.status >= 400 && error.response.status < 500 && error.response;
     if (!expectedError) {
-      showFailureToaster("unexpected error ");
+      showFailureToaster("unexpected error");
     }
 
     showToast("error");
@@ -47,7 +47,7 @@ axiosInstance.interceptors.response.use(
 
 axiosInstanceWithoutToken.interceptors.response.use(
   (response) => {
-    showToast("success");
+    // showToast("success");
     return response;
   },
   (error) => {

@@ -12,9 +12,7 @@ function AppRoutes() {
           <Route
             path={route.path}
             {...route.others}
-            element={
-              <PrivateRoutes permissions={route.permissions}>{<route.component />}</PrivateRoutes>
-            }
+            element={<PrivateRoutes>{<route.component />}</PrivateRoutes>}
           />
         );
       })}
