@@ -2,7 +2,6 @@ import React from "react";
 import { auth } from "../services/authService";
 import Login from "../pages/login/Login";
 import Navbar from "../components/navbar/Navbar";
-import Footer from "../components/footer/Footer";
 import Register from "../pages/register/Register";
 
 export function PrivateRoutes({ permissions, children }) {
@@ -11,7 +10,6 @@ export function PrivateRoutes({ permissions, children }) {
       <>
         <Navbar />
         {children}
-        <Footer />
       </>
     );
   }

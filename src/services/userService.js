@@ -18,12 +18,10 @@ const newUserSchema = Joi.object({
     .regex(/^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{8,}$/)
     .required()
     .messages({
-      "string.pattern.base": "Password must be atleast 8 characters long and alphanumeic",
+      "string.pattern.base":
+        "Password must be atleast 8 characters long and alphanumeic",
     }),
   phoneNo: Joi.string().min(3).max(20).required(),
-  experience: Joi.number().integer().min(1).max(30),
-  userType: Joi.string().valid("buyer", "seller").required(),
-  profilePicture: Joi.string().required(),
 });
 
 async function addNewUser(user) {
