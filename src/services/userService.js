@@ -51,15 +51,6 @@ async function userDetails(id) {
   }
 }
 
-async function getAllArtists() {
-  try {
-    return await http.get(userApiEndpoint + "/artists");
-  } catch (err) {
-    showFailureToaster(err.data.errorMessage);
-    return false;
-  }
-}
-
 async function updateUser(user) {
   try {
     await http.put(userApiEndpoint, { ...user });
@@ -75,7 +66,6 @@ export const userService = {
   newUserSchema,
   addNewUser,
   getMyDetails,
-  getAllArtists,
   userDetails,
   updateUser,
 };
