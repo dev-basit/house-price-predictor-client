@@ -1,4 +1,4 @@
-export const baseURL = "http://localhost:3003/api/";
+export const baseURL = "http://localhost:3006/api/";
 export const cloudinary = {
   cloudName: "dkf6eqc15",
   upload_preset: "lrjj4mqx",
