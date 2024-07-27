@@ -8,19 +8,13 @@ import { auth } from "./authService";
 const userApiEndpoint = baseURL + "users";
 
 const newUserSchema = Joi.object({
-  name: Joi.string().min(3).max(50).required(),
+  name: Joi.string().min(3).max(128).required(),
   email: Joi.string()
-    .min(5)
-    .max(255)
+    .min(3)
+    .max(128)
     .required()
     .email({ tlds: { allow: false } }),
-  password: Joi.string()
-    .regex(/^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{8,}$/)
-    .required()
-    .messages({
-      "string.pattern.base":
-        "Password must be atleast 8 characters long and alphanumeic",
-    }),
+  password: Joi.string(),
   phoneNo: Joi.string().min(3).max(20).required(),
 });
 

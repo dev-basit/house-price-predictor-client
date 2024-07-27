@@ -31,6 +31,7 @@ function Login() {
 
     try {
       const isLogin = await auth.login({ ...user });
+      console.log("isLogin ", isLogin);
       if (isLogin) navigate("/");
 
       // setUser({ name: "", email: "", password: "", userType: "" });
