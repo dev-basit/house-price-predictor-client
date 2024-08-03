@@ -13,6 +13,7 @@ export default function Register() {
     password: "",
     phoneNo: "",
   });
+  const [loading, setloading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,9 +30,14 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setloading(true);
+
     try {
       const { error } = userService.newUserSchema.validate(user);
-      if (error) return showFailureToaster(error.message);
+      if (error) {
+        setloading(false);
+        return showFailureToaster(error.message);
+      }
 
       let { name, email, password, phoneNo } = user;
       let userDetails = {
@@ -42,8 +48,15 @@ export default function Register() {
       };
 
       const isSignup = await userService.addNewUser({ ...userDetails });
-      if (isSignup) navigate("/");
-    } catch (error) {}
+      if (isSignup) {
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      }
+      setloading(false);
+    } catch (error) {
+      setloading(false);
+    }
   };
 
   return (
@@ -88,7 +101,9 @@ export default function Register() {
           autoComplete="phoneNo"
         />
 
-        <button className="registerButton">Register</button>
+        <button disabled={loading} className="registerButton">
+          {loading ? "Loading..." : "Register"}
+        </button>
       </form>
 
       <button className="registerLoginButton">
