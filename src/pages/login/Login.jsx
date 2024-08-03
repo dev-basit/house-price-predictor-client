@@ -37,10 +37,10 @@ function Login() {
 
     try {
       const isLogin = await auth.login({ ...user });
-      if (isLogin) navigate("/");
+      // if (isLogin) navigate("/");
 
       setTimeout(() => {
-        window.location.reload();
+        if (isLogin) window.location.reload();
       }, 2000);
       setloading(false);
 
