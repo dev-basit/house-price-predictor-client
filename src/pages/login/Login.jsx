@@ -10,6 +10,7 @@ function Login() {
     email: "",
     password: "",
   });
+  const [loading, setloading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,16 +27,27 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setloading(true);
+
     const { error } = auth.userLoginSchema.validate(user);
-    if (error) return showFailureToaster(error.message);
+    if (error) {
+      setloading(false);
+      return showFailureToaster(error.message);
+    }
 
     try {
       const isLogin = await auth.login({ ...user });
-      console.log("isLogin ", isLogin);
       if (isLogin) navigate("/");
 
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+      setloading(false);
+
       // setUser({ name: "", email: "", password: "", userType: "" });
-    } catch (error) {}
+    } catch (error) {
+      setloading(false);
+    }
   };
 
   return (
@@ -61,8 +73,8 @@ function Login() {
           onChange={handleChange}
           autoComplete="password"
         />
-        <button className="loginButton" type="submit">
-          Login
+        <button disabled={loading} className="loginButton" type="submit">
+          {loading ? "Loading..." : "Login"}
         </button>
       </form>
       <button className="loginRegisterButton">
